@@ -26,5 +26,24 @@ File.stream!("priv/vendor/technical-test-professions.csv")
         Logger.error("[SEED] Couldn't import Profession ID #{id}")
     end
   _ ->
-    Logger.error("[SEED] Skipping a malformed row.")
+    Logger.error("[SEED] Skipping a malformed Profession row.")
+end)
+
+
+
+File.stream!("priv/vendor/technical-test-jobs.csv")
+|> CSV.decode()
+|> Enum.drop(1)
+|> Enum.each(fn
+  {:ok, [profession_id, contract_type, name, office_latitude, office_longitude]} ->
+    result = Wttj.Board.Job.create(profession_id, contract_type, name, office_latitude, office_longitude)
+
+    case result do
+      {:ok, _} ->
+        Logger.debug("[SEED] Successfully imported Job #{name}")
+      err ->
+        Logger.error("[SEED] Couldn't import Job #{name} #{inspect err}")
+    end
+  _ ->
+    Logger.error("[SEED] Skipping a malformed Job row.")
 end)
