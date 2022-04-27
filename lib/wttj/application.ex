@@ -8,14 +8,11 @@ defmodule Wttj.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
       Wttj.Repo,
-      # Start the endpoint when the application starts
       WttjWeb.Endpoint,
-
       {Phoenix.PubSub, [name: Wttj.PubSub, adapter: Phoenix.PubSub.PG2]},
-      # Starts a worker by calling: Wttj.Worker.start_link(arg)
-      # {Wttj.Worker, arg},
+
+      Wttj.Workers.ContinentLocator
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

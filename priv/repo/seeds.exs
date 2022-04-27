@@ -29,8 +29,6 @@ File.stream!("priv/vendor/technical-test-professions.csv")
     Logger.error("[SEED] Skipping a malformed Profession row.")
 end)
 
-
-
 File.stream!("priv/vendor/technical-test-jobs.csv")
 |> CSV.decode()
 |> Enum.drop(1)
