@@ -7,5 +7,7 @@ defmodule WttjWeb.Router do
 
   scope "/", WttjWeb do
     pipe_through :api
+
+    head "/", StubController, :index
   end
 end
