@@ -5,7 +5,7 @@ defmodule WttjWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", WttjWeb do
+  scope "/", WttjWeb do
     pipe_through :api
   end
 end
