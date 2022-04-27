@@ -32,6 +32,9 @@ defmodule Wttj.Board.Job do
     |> validate_required(@required_fields)
   end
 
+  @doc """
+  Creates a Job given 5 primary attributes.
+  """
   def create(profession_id, contract_type, name, office_latitude, office_longitude) do
     attrs = %{
       profession_id: profession_id,
@@ -45,11 +48,16 @@ defmodule Wttj.Board.Job do
     |> insert()
   end
 
+  @doc """
+  Updates a Job office_continent_name field given an ID.
+  """
   def update(id, office_continent_name) do
-    {:ok, job} = Wttj.Repo.get(__MODULE__, id)
-    changeset = Ecto.Changeset.change(job, office_continent_name: office_continent_name)
-
-    Wtj.Repo.update(changeset)
+    with %__MODULE__{} = job <- Wttj.Repo.get(__MODULE__, id) do
+      changeset = Ecto.Changeset.change(job, office_continent_name: office_continent_name)
+      Wttj.Repo.update(changeset)
+    else
+      nil -> nil
+    end
   end
 
   defp insert(%Ecto.Changeset{} = changeset) do

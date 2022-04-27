@@ -16,6 +16,13 @@ defmodule Wttj.Board.Profession do
     |> validate_required([:name, :category_name])
   end
 
+  @doc ~S"""
+  Creates a Profession given 3 primary attributes.
+
+  ## Examples
+
+    iex> {:ok, %Wttj.Board.Profession{id: 1, name: "Dev", category_name: "Tech"}} = Wttj.Board.Profession.create(1, "Dev", "Tech")
+  """
   def create(id, name, category_name) do
     attrs = %{
       id: id,
