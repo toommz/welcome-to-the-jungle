@@ -48,15 +48,16 @@ defmodule Wttj.Board.Job do
     |> insert()
   end
 
+  @spec update(integer, binary) :: {:ok, struct} | {:error, any}
   @doc """
   Updates a Job office_continent_name field given an ID.
   """
-  def update(id, office_continent_name) do
+  def update(id, office_continent_name) when is_integer(id) and is_binary(office_continent_name) do
     with %__MODULE__{} = job <- Wttj.Repo.get(__MODULE__, id) do
       changeset = Ecto.Changeset.change(job, office_continent_name: office_continent_name)
       Wttj.Repo.update(changeset)
     else
-      nil -> nil
+      err -> {:error, err}
     end
   end
 

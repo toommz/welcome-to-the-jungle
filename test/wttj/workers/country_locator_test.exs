@@ -10,6 +10,10 @@ defmodule Wttj.Workers.CountryLocatorTest do
       assert fct.(48.1392154, 11.5781413) == {:ok, "de"}
     end
 
+    test "only returns valid country codes", %{fct: fct} do
+      assert fct.(0.0, 0.0) == {:error, false}
+    end
+
     test "refuses invalid values", %{fct: fct} do
       assert_raise FunctionClauseError, fn ->
         fct.(nil, nil)

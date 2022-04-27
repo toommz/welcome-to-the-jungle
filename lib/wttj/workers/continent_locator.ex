@@ -38,6 +38,7 @@ defmodule Wttj.Workers.ContinentLocator do
     {:reply, response, state}
   end
 
+  @spec get_continent_name(nil | binary) :: nil | binary
   @doc """
   Returns the associated continent_name given a two-letter country code.
   """
