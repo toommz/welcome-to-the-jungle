@@ -1,7 +1,7 @@
 defmodule Wttj.Workers.ContinentLocator do
   @moduledoc """
-  This GenServer will parse a list of corresponding countries and continents
-  at runtime, and expose a main function to retrieve a continent name based
+  This GenServer parses a list of corresponding countries and continents
+  at runtime, and exposes a main function to retrieve a continent name based
   on a two-letter country code.
   """
   use GenServer
