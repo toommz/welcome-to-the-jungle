@@ -43,7 +43,9 @@ defmodule Wttj.MixProject do
       {:plug_cowboy, "~> 2.0"},
 
       {:csv, "~> 2.4"},
-      {:geocoder, "~> 1.1"}
+      {:geocoder, "~> 1.1"},
+
+      {:open_api_spex, "~> 3.11"}
     ]
   end
 
@@ -55,6 +57,7 @@ defmodule Wttj.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      apidoc: ["openapi.spec.json --spec WttjWeb.ApiSpec openapi.json"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]

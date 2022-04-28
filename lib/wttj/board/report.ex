@@ -19,7 +19,19 @@ defmodule Wttj.Board.Report do
     |> validate_required([:category_name, :continent_name, :jobs_count])
   end
 
-  def all() do
-    Wttj.Repo.all(__MODULE__)
+  defmodule QueryBuilding do
+    import Ecto.Query
+
+    def filter(query, :category_name, value) do
+      query |> where([r], r.category_name == ^value)
+    end
+
+    def filter(query, :continent_name, value) do
+      query |> where([r], r.continent_name == ^value)
+    end
+  end
+
+  def all(query \\ __MODULE__) do
+    Wttj.Repo.all(query)
   end
 end

@@ -12,6 +12,7 @@ defmodule Wttj.Workers.ReportUpdater do
         totals_per_continent(rows)
         |> Kernel.++(totals_per_category(rows))
         |> Kernel.++(total_overall(rows))
+        |> Kernel.++(rows)
 
       process(to_process)
     else
@@ -20,7 +21,7 @@ defmodule Wttj.Workers.ReportUpdater do
     end
   end
 
-  # IMPROV: `inserted_at` is lost on each upsert.
+  # @TODO: `inserted_at` is lost on each upsert.
   defp process(rows) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 

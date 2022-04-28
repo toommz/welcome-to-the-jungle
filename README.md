@@ -83,3 +83,33 @@ If hitting an external API for reverse geocoding would be a problem, then I woul
 If we really want real-time reporting, then the Oban worker should be able to broadcast a Phoenix Channel event, so that the updated count is carried over through WebScokets.
 
 If the information is only relevant for internal business purposes, I would probably engineer or handover to a data warehouse, and use something like BigQuery to present the data with internal dashboarding.
+
+## Part Three
+Make sure you got some data:
+```sh
+mix ecto.setup
+```
+
+Start the application server:
+```
+iex -S mix phx.server
+# Compute Reports:
+iex> Wttj.Workers.ReportUpdater.run()
+```
+
+And you can then access your app at `localhost:4000/reports`
+
+### API Documentation
+There's a rudimentory OpenAPI documentation available. You can generate it and import it in, eg. Postman:
+```sh
+mix apidoc
+```
+
+* You can filter category and continent names
+* You can sort by each three fields (regular field name for ascending, preceded with a minus sign for descending)
+* Only one sortable field at a time is allowed
+
+### Examples
+* `http://localhost:4000/reports?category_name=Tech&continent_name=Europe`
+* `http://localhost:4000/reports?category_name=Tech&sort=-jobs_count`
+* `http://localhost:4000/reports?category_name=Tech&continent_name=Africa&sort=-jobs_count`
