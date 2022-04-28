@@ -10,6 +10,8 @@ You can then run:
 ```sh
 # Start a postgres server:
 docker-compose up -d
+# Get dependencies
+mix deps.get
 # Create, migrate and seed the database (it'll take a while, but less than 2 minutes):
 mix ecto.setup
 # Run tests
