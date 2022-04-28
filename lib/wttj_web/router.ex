@@ -9,5 +9,7 @@ defmodule WttjWeb.Router do
     pipe_through :api
 
     head "/", StubController, :index
+
+    get "/reports", ReportController, :index
   end
 end

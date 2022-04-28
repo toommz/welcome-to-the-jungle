@@ -2,28 +2,17 @@ defmodule Mix.Tasks.Wttj.Report do
   use Mix.Task
   require Mix.Generator
 
+  alias Wttj.Board.Report
+
   def run(_argv) do
     Mix.Task.run("app.start")
 
-    Wttj.Workers.OfficeContinentNameUpdater.run()
+    Wttj.Workers.ReportUpdater.run()
 
-    with %Postgrex.Result{rows: rows} <- Wttj.Board.jobs_per_continent_and_category() do
-      total =
-        rows |> Enum.reduce(0, fn [_cat, count, _cont], acc -> acc + count end)
-
-      rows
-      |> Enum.reduce(%{}, fn [category, count, continent], acc ->
-        Map.put_new(acc, {category, continent}, count)
-      end)
-      |> Enum.each(fn {{category, continent}, count} ->
-        IO.puts "#{category} Jobs in continent #{continent}: #{count}"
-      end)
-
-      IO.puts "#{total} Jobs in total"
-    else
-      err ->
-        IO.puts "Oops... Something bad happened: #{inspect err}"
-    end
+    Report.all()
+    |> Enum.each(fn %Report{category_name: category_name, continent_name: continent_name} = report ->
+      IO.puts "#{report.jobs_count} Jobs (Category #{category_name}, Continent #{continent_name})"
+    end)
 
   end
 end
