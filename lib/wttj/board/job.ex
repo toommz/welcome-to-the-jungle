@@ -14,7 +14,7 @@ defmodule Wttj.Board.Job do
   ]
 
   schema "jobs" do
-    field :contract_type, :string
+    field :contract_type, :string # @TODO: Use an EctoEnum here.
     field :name, :string
     field :office_latitude, :decimal
     field :office_longitude, :decimal

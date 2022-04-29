@@ -16,7 +16,7 @@ defmodule Wttj.Board.Profession do
     |> validate_required([:name, :category_name])
   end
 
-  @doc ~S"""
+  @doc """
   Creates a Profession given 3 primary attributes.
 
   ## Examples

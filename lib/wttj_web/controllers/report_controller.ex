@@ -18,8 +18,8 @@ defmodule WttjWeb.ReportController do
   def index(conn, _params) do
     reports =
       Report
-      |> WttjWeb.Parameters.apply_filter(conn)
-      |> WttjWeb.Parameters.apply_sort(conn)
+      |> WttjWeb.Parameters.Report.apply_filter(conn)
+      |> WttjWeb.Parameters.Report.apply_sort(conn)
       |> Report.all()
 
     conn

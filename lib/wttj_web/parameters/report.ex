@@ -1,4 +1,4 @@
-defmodule WttjWeb.Parameters do
+defmodule WttjWeb.Parameters.Report do
   import Ecto.Query
 
   alias Wttj.Board.Report
@@ -13,7 +13,7 @@ defmodule WttjWeb.Parameters do
     Enum.reduce(params, queryable, fn {key, value}, acc ->
       key_atom = String.to_existing_atom(key)
 
-      if Enum.find(@allowed_filters, fn x -> x == key_atom end) |> is_nil() == false do
+      if Enum.any?(@allowed_filters, &(&1 == key_atom)) do
         Report.QueryBuilding.filter(acc, key_atom, value)
       else
         acc
